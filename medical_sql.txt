@@ -1,0 +1,46 @@
+SELECT *
+ FROM `bigquery-public-data.sdoh_hrsa_shortage_areas.hpsa_primary_care`
+WHERE State_Abbr = 'TX'
+    or 
+    State_Abbr='NY'
+    and Type_Desc = 'Rural Health Clinic'
+    order by State_Abbr
+;
+SELECT Status_Code
+ FROM `bigquery-public-data.sdoh_hrsa_shortage_areas.hpsa_primary_care`
+ WHERE Status_Description = 'Withdrawn'
+ ;
+SELECT Source_Name,Type_Code, Status_Code, State_Abbr
+ FROM `bigquery-public-data.sdoh_hrsa_shortage_areas.hpsa_primary_care`
+   order by State_Abbr asc 
+;
+Select count(*)
+ FROM `bigquery-public-data.sdoh_hrsa_shortage_areas.hpsa_primary_care`
+ where State_Abbr= 'TX'
+ and Status_Description= "Withdrawn"
+-- There are 1944 hospitals in the state of texas
+-- of those 1011 have withdrawn 
+; 
+select count (distinct State_Abbr) 
+ FROM `bigquery-public-data.sdoh_hrsa_shortage_areas.hpsa_primary_care`
+where Status_Code = 'W'
+and Type_Desc='Rural Health Clinic'
+--39 states have withdrawn from hpsa primary care and are classified as rural clinics
+;
+SELECT Discipline_Class_Desc, Source_Name, Type_Desc
+ FROM `bigquery-public-data.sdoh_hrsa_shortage_areas.hpsa_primary_care`
+  Where State_Abbr= 'TX'
+  and Status_Description= "Withdrawn"
+order by Source_Name asc  
+; 
+SELECT Discipline_Class_Desc, Source_Name, Type_Desc,Estimated_Served_Pop,Estimated_Underserved_Pop
+ FROM `bigquery-public-data.sdoh_hrsa_shortage_areas.hpsa_primary_care`
+  Where State_Abbr= 'TX'
+  and 
+  Status_Description= 'Withdrawn'
+  and 
+  Type_Desc= 'Rural Health Clinic'
+order by Source_Name asc  
+; 
+
+
