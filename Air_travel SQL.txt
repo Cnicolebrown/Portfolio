@@ -1,0 +1,57 @@
+Select *
+from [flights$]
+;
+Select flightType, time, agency
+from [flights$]
+order by flightType
+;
+Select flightType, time, agency,
+case
+		WHEN time > .5 then 'long'
+		ELSE 'short'
+end as Flight_Length
+from [flights$]
+order by flightType
+;
+select flightType, time, agency
+from [flights$]
+where agency = 'Rainbow' and flightType = 'economic'
+;
+SELECT count(flightType), agency 
+FROM [flights$]
+GROUP BY agency
+order by COUNT(flightType) 
+;
+Select count(agency), flightType
+from [flights$]
+group by flightType
+order by count (flightType)
+;
+SELECT COUNT(price), agency
+FROM [flights$]
+GROUP BY agency
+HAVING COUNT(price) > 600
+;
+select AVG(price) 
+from [flights$]
+where agency='Rainbow'
+and flightType='economic'
+;
+SELECT COUNT(DISTINCT travelCode) 
+FROM [flights$]
+;
+--This shows the variation in the two different counts
+select count(travelCode)
+from [flights$]
+;
+Select count(distinct travelCode)
+from [flights$]
+where not agency = 'Rainbow' and not flightType= 'economic'
+;
+select flightType, agency, distance, price, travelCode
+from [flights$]
+where travelCode between '46960' and '46970'
+order by agency desc
+;
+
+
